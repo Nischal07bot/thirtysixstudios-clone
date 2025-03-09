@@ -33,7 +33,10 @@ function Canvas({details}){
             ctx.drawImage(img,0,0,canvas.offsetWidth,canvas.offsetHeight);
         }
         },[index]);
-    return <canvas ref={canvasRef} 
+    return <canvas
+    data-scroll
+    data-scroll-speed={Math.random().toFixed(1)}
+    ref={canvasRef} 
     className="absolute"
    style={{
     width: `${details.size*1.4}px`,
