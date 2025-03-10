@@ -4,13 +4,9 @@
 A modern, interactive website clone of ThirtySix Studios built with React, GSAP animations, and Locomotive Scroll. This project showcases advanced web animation techniques and responsive design principles.
 
 <div align="center">
-  <img src="./public/preview.png" alt="ThirtySix Studios Clone Preview" width="800px"/>
+  <img src="./public/preview.png.PNG" alt="ThirtySix Studios Clone Preview" width="800px"/>
   <p><em>Preview of the ThirtySix Studios Clone Website</em></p>
 </div>
-
-[ThirtySix Studios Clone](https://github.com/Nischal07bot/thirtysixstudios-clone/tree/main)
-
-
 
 ## 🌟 Features
 
