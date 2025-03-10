@@ -1,6 +1,8 @@
 @import "tailwindcss";
-
-body{
+body {
+    transition: background-color 0.5s ease;
     background-color: #FD2C2A;
 }
-
+canvas{
+    pointer-events: none;
+}
