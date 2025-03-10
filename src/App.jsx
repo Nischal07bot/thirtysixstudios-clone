@@ -3,31 +3,47 @@ import Canvas from './Canvas';
 import data from "./infodata";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Contact from './Contact';
-import { useEffect,useState } from 'react';
+import { useEffect,useState ,useRef} from 'react';
 import gsap from 'gsap';
-
+import LocomotiveScroll from 'locomotive-scroll';
+import { useGSAP } from '@gsap/react';
 function Home() {
-    const [bgColor, setBgColor] = useState('#FD2C2A');
-   const [showCanvas, setShowCanvas] = useState(false);
-    const colors = ['#1a1a1a', '#2d3436', '#636e72', '#2c3e50', '#34495e', '#FD2C2A'];
-    
-    const handleClick = () => {
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        document.body.style.transition = 'background-color 0.5s ease';
-        document.body.style.backgroundColor = randomColor;
-        if(showCanvas){
-            setShowCanvas(false);
+    const [count, setCount] = useState(0);
+    const [showCanvas, setShowCanvas] = useState(false);
+    const growingspan=useRef(null);
+    const headingref = useRef(null);
+    useEffect(()=>{
+        const scroll = new LocomotiveScroll();
+        return ()=>{
+            scroll.destroy();
         }
-        else{
-            setShowCanvas(true);
-        }
-        setBgColor(randomColor);
-    };
+    },[])
+    useGSAP(() => {
+        headingref.current.addEventListener("click", (e) => {
+            setCount(prev => prev + 1);
+            if (showCanvas) {
+                setShowCanvas(false);
+            } else {
+                setShowCanvas(true);
+            }
+            if (count === 0) {
+                gsap.set(growingspan.current, {
+                    top: e.clientY,
+                    left: e.clientX,
+                });
+                gsap.to(growingspan.current, {
+                    scale: 1000,
+                    duration: 1,
+                    ease: "power2.inOut",
+                });
+            }
+        });
+    }, [showCanvas, count]);
     return (
         <>
+        <span ref={growingspan} className="growing rounded-full fixed top-0 left-0 w-5 h-5" ></span>
         <div 
             className="w-full relative min-h-screen text-white cursor-pointer"
-            onClick={handleClick}
         >
         <>
         <div className="w-full relative min-h-screen text-white">
@@ -57,7 +73,7 @@ function Home() {
                 </div>
             </div>
             <div className="w-full absolute bottom-0 left-0 flex justify-center items-center">
-                <h1 className="text-white text-[17rem] font-normal tracking-light leading-none">Thirtysixstudio</h1>
+                <h1 ref={headingref}className="text-white text-[17rem] font-normal tracking-light leading-none">Thirtysixstudio</h1>
             </div>
             </div>
                 {showCanvas && data[0].map((canvasdetails, index) => (

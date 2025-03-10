@@ -16,7 +16,12 @@ function Canvas({details}){
             repeat:-1,
             //yoyo:true
         })
-    })
+        gsap.from(canvasRef.current,{
+            opacity:0,
+            duration:1,
+            ease:"power2.inOut",
+        });
+    });
     useEffect(() => {
         // console.log(canvasImages);
         const scale=window.devicePixelRatio;
